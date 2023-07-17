@@ -1,0 +1,47 @@
+<div class="container-sm">
+  <!-- Aplicación -->
+  <div *ngIf="timeOut" [ngClass]="'alert alert-' + caseCSS + ' mt-2'">
+    {{ mensaje }}
+  </div>
+
+  <div id="App" class="row pt-5 card">
+    <div>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4 class="text-center">Consulta Artículo</h4>
+        </div>
+
+        <form (ngSubmit)="buscarProducto(sku)" id="formulario-articulos" class="card-body d-grid gap-2">
+
+          <div class="form-group">
+            <input type="number" [(ngModel)]="sku" name="sku" id="sku" placeholder="SKU" class="form-control mb-2"
+              min="0" max="999999">
+          </div>
+          <input type="submit" value="Validar" class="btn btn-primary mt-2">
+
+        </form>
+      </div>
+      <div class="card-body" id="lista-productos">
+
+        <div *ngIf="producto != null && producto !== ''">
+          <div class="card text-center" [attr.sku]="producto.sku">
+            <ul class="card-body">
+              <li class="list-unstyled">SKU: {{ producto.sku }}</li>
+              <li class="list-unstyled">Nombre: {{ producto.nombre }}</li>
+              <li class="list-unstyled">Marca: {{ producto.marca }}</li>
+              <li class="list-unstyled">Modelo: {{ producto.modelo }}</li>
+              <li class="list-unstyled">Departamento: {{ producto.departamento }}</li>
+              <li class="list-unstyled">Clase: {{ producto.clase }}</li>
+              <li class="list-unstyled">Familia: {{ producto.familia }}</li>
+              <li class="list-unstyled">Fecha Alta: {{ producto.fecha_alta }}</li>
+              <li class="list-unstyled">Stock: {{ producto.stock }}</li>
+              <li class="list-unstyled">Cantidad: {{ producto.cantidad }}</li>
+              <li class="list-unstyled">Descontinuado: {{ producto.descontinuado }}</li>
+              <li class="list-unstyled">Fecha Baja: {{ producto.fecha_baja }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

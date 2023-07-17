@@ -1,0 +1,119 @@
+<div class="container-sm">
+
+    <!-- Aplicación -->
+    <div *ngIf="badSKU" [ngClass]="'alert alert-' + caseCSS + ' mt-2'">
+        {{ mensaje }}
+    </div>
+
+    <div id="App" class="row pt-5 card">
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="text-center">Cambiar Artículo</h4>
+                </div>
+
+                <form #formulario="ngForm" (ngSubmit)="onSubmit($event)" id="formulario-articulos"
+                    class="card-body d-grid gap-2">
+
+                    <div class="form-group">
+                        <input [(ngModel)]="modelArticulo.sku" (ngModelChange)="onSKUChange(sku)" name="sku"
+                            [ngClass]="{'is-invalid': !modelValidacion.validSKU}" type="number"
+                            placeholder="SKU" class="form-control mb-2" min="0" max="999999" #sku="ngModel">
+                    </div>
+
+                    <div class="form-group">
+                        <input [(ngModel)]="modelArticulo.nombre" [attr.disabled]="!enabled ? '' : null" name="nombre"
+                            [ngClass]="{'is-invalid': !modelValidacion.validNombre}" type="text"
+                            placeholder="Artículo" class="form-control mb-2" maxlength="15" disabled
+                            #articulo="ngModel">
+                    </div>
+
+                    <div class="form-group">
+                        <input [(ngModel)]="modelArticulo.marca" [attr.disabled]="!enabled ? '' : null" name="marca"
+                            [ngClass]="{'is-invalid': !modelValidacion.validMarca}" type="text"
+                            placeholder="Marca" class="form-control mb-2" maxlength="15" disabled #marca="ngModel">
+                    </div>
+
+                    <div class="form-group">
+                        <input [(ngModel)]="modelArticulo.modelo" [attr.disabled]="!enabled ? '' : null" name="modelo"
+                            [ngClass]="{'is-invalid': !modelValidacion.validModelo}" type="text"
+                            placeholder="Modelo" class="form-control mb-2" maxlength="20" disabled #modelo="ngModel">
+                    </div>
+
+                    <div class="form-group">
+                        <select [(ngModel)]="modelArticulo.departamento" name="departamento"
+                            (ngModelChange)="onDepChange(dep, false)" [attr.disabled]="!enabled ? '' : null"
+                            [ngClass]="{'is-invalid': !modelValidacion.validDepartamento}"
+                            class="form-control mb-2" disabled #departamento="ngModel">
+                            <option [ngValue]="null" disabled selected>Departamento</option>
+                            <option *ngFor="let departamento of departamentos" value="{{departamento.idDep}}">
+                                {{departamento.nombreDepartamento}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select [(ngModel)]="modelArticulo.clase" name="clase" [attr.disabled]="!enabled ? '' : null"
+                            (ngModelChange)="onClaseChange(dep, clase, false)"
+                            [ngClass]="{'is-invalid': !modelValidacion.validClase}"
+                            class="form-control mb-2 text-body" disabled #clase="ngModel">
+                            <option [ngValue]="null" disabled selected>Clase</option>
+                            <option *ngFor="let clase of clases" value="{{clase.numClase}}">{{clase.nombreClase}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select [(ngModel)]="modelArticulo.familia" name="familia"
+                            [attr.disabled]="!enabled ? '' : null"
+                            [ngClass]="{'is-invalid': !modelValidacion.validFamilia}"
+                            class="form-control mb-2" disabled #familia="ngModel">
+                            <option [ngValue]="null" disabled selected>Familia</option>
+                            <option *ngFor="let familia of familias" value="{{familia.numFamilia}}">
+                                {{familia.nombreFamilia}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group input-group">
+                        <input [(ngModel)]="modelArticulo.stock" [attr.disabled]="!enabled ? '' : null" name="stock"
+                            type="number" [ngClass]="{'is-invalid': !modelValidacion.validStock}"
+                            placeholder="Stock" class="form-control mb-2" min="0" max="999999999" disabled
+                            #stock="ngModel">
+                        <input [(ngModel)]="modelArticulo.cantidad" [attr.disabled]="!enabled ? '' : null"
+                            name="cantidad" type="number" [ngClass]="{'is-invalid': !modelValidacion.validCantidad}"
+                            placeholder="Cantidad" class="form-control mb-2" min="0" max="999999999"
+                            disabled #cantidad="ngModel">
+
+                        <div class="invalid-feedback">El stock debe ser mayor que 0 y menor a 9
+                            dígitos
+                        </div>
+                        <div class="invalid-feedback">La cantidad debe ser igual o menor al stock
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Fecha Alta</label>
+                        <input [(ngModel)]="modelArticulo.fecha_alta" name="fecha-alta" value="{{fechaActual}}"
+                            type="text" readonly class="form-control mb-2"
+                            placeholder="{{fechaActual}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label">Fecha Baja</label>
+                        <input [(ngModel)]="modelArticulo.fecha_baja" name="fecha-baja" type="text"
+                            [value]="modelArticulo.descontinuado ? fechaActual : '1900-01-01'" readonly placeholder="1900-01-01" class="form-control mb-2 col-sm-4">
+                    </div>
+
+                    <div class="form-group m-3">
+                        <input [(ngModel)]="modelArticulo.descontinuado" name="descontinuado" [disabled]="!enabled" class="form-check-input"
+                            type="checkbox">
+                        <label class="form-check-label">&nbsp;Descontinuado</label>
+                    </div>
+
+                    <input (click)="Guardar(modelArticulo, formulario, true)" [attr.disabled]="!enabled ? '' : null"
+                        value="Guardar" type="submit" class="btn btn-primary mt-2">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

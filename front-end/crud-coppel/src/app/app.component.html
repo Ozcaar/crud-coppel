@@ -1,0 +1,17 @@
+
+<div class="text-center mt-5">
+    <h1 class="h1">TITULO</h1>
+</div>
+
+<!-- Navegación -->
+<nav class="navbar">
+    <div class="container">
+        <button type="button" class="btn btn-success w-25 p-0" (click)="Alta()"><a class="nav-link p-3">ALTA</a></button>
+        <button type="button" class="btn btn-danger w-25 p-0" (click)="Baja()"><a class="nav-link p-3">BAJA</a></button>
+        <button type="button" class="btn btn-warning w-25 p-0" (click)="Cambio()"><a class="nav-link p-3">CAMBIO</a></button>
+        <button type="button" class="btn btn-info w-25 p-0" (click)="Consulta()"><a class="nav-link p-3">CONSULTA</a></button>
+    </div>
+</nav>
+<hr>
+
+<router-outlet></router-outlet>

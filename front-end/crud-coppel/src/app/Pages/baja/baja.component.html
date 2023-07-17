@@ -1,0 +1,38 @@
+<div class="container-sm">
+    <!-- Aplicación -->
+    <div *ngIf="msg" [ngClass]="'alert alert-' + caseCSS + ' mt-2'">
+        {{ mensaje }}
+    </div>
+
+    <div id="App" class="row pt-5 card">
+        <div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="text-center">Eliminar Artículo</h4>
+                </div>
+
+                <form (ngSubmit)="onSubmit($event)" id="formulario-articulos" class="card-body d-grid gap-2">
+
+                    <div class="form-group">
+                        <input type="number" [(ngModel)]="sku" name="sku" id="sku" placeholder="SKU"
+                            class="form-control mb-2" min="0" max="999999">
+                    </div>
+                    <input (click)="buscarProducto(sku)" type="submit" value="Validar" class="btn btn-primary mt-2">
+
+                </form>
+            </div>
+            <div class="card-body" id="lista-productos">
+                <div class="card text-center" *ngIf="producto != null && producto !== ''">
+                    <ul class="card-body">
+                        <li class="list-unstyled">SKU: {{producto.sku}}</li>
+                        <li class="list-unstyled">Nombre:  {{ producto.nombre }}</li>
+                        <li class="list-unstyled">Marca: {{ producto.marca }}</li>
+                        <li class="list-unstyled">Modelo: {{ producto.modelo }}</li>
+
+                        <a (click)="eliminarArticulo(producto, $event)" class="btn btn-danger m-2" name="eliminar">Eliminar</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
